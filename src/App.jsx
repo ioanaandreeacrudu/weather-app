@@ -25,8 +25,8 @@ function App() {
   return (
     <div className="min-h-screen bg-slate-900 p-8 flex flex-col items-center gap-8">
       <header className="text-center animate-fade-in">
-        <h1 className="text-6xl font-display font-bold text-white mb-2">Aether</h1>
-        <p className="text-slate-400 font-body tracking-widest text-xs uppercase">Real-time Weather Intelligence</p>
+        <h1 className="text-6xl font-display font-bold text-white mb-2">deVreme</h1>
+        <p className="text-slate-400 font-body tracking-widest text-xs uppercase">Real-time Weather App</p>
       </header>
 
       <SearchBar onSearch={handleSearch} isLoading={loading} />
