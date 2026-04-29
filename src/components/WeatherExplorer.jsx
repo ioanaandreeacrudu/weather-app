@@ -10,11 +10,10 @@ const KEY_CITIES = [
 ];
 
 export default function WeatherExplorer() {
-  const [activeFilter, setActiveFilter] = useState('Clear'); // Default: Însorit
+  const [activeFilter, setActiveFilter] = useState('Clear');
   const [cityData, setCityData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Încărcăm datele pentru toate orașele la montarea componentei
   useEffect(() => {
     const loadAll = async () => {
       try {
@@ -33,12 +32,13 @@ export default function WeatherExplorer() {
 
   const filteredCities = cityData.filter(city => city.mainCondition === activeFilter);
 
-  if (loading) return <div className="text-white/20 animate-pulse">Scanning global atmosphere...</div>;
+  if (loading) return <div className="text-white/20 animate-pulse text-center py-10">Scanning global atmosphere...</div>;
 
   return (
-    <div className="w-full space-y-6">
-      {/* Selector de Vreme */}
-      <div className="flex justify-center gap-4">
+    <div className="w-full space-y-8 px-4 md:px-0">
+      
+      {/* 1. Selector de Vreme - Optimizat pentru Mobile Scroll */}
+      <div className="flex justify-start md:justify-center overflow-x-auto no-scrollbar gap-3 pb-4 -mx-4 px-4 snap-x">
         {[
           { id: 'Clear', label: 'Sunny', icon: '☀️' },
           { id: 'Rain', label: 'Rainy', icon: '🌧️' },
@@ -48,32 +48,42 @@ export default function WeatherExplorer() {
           <button
             key={filter.id}
             onClick={() => setActiveFilter(filter.id)}
-            className={`px-6 py-3 rounded-full transition-all border ${
+            className={`px-6 py-4 rounded-[2rem] transition-all border whitespace-nowrap snap-center flex items-center gap-3 ${
               activeFilter === filter.id 
-              ? 'bg-emerald-500 border-emerald-400 text-slate-900 shadow-lg shadow-emerald-500/20 scale-105' 
+              ? 'bg-emerald-500 border-emerald-400 text-slate-900 shadow-lg shadow-emerald-500/20 scale-100' 
               : 'bg-white/5 border-white/10 text-white/60 hover:bg-white/10'
             }`}
           >
-            {filter.icon} {filter.label}
+            <span className="text-xl">{filter.icon}</span>
+            <span className="font-bold text-sm uppercase tracking-wider">{filter.label}</span>
           </button>
         ))}
       </div>
 
-      {/* Rezultate pe Continente */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* 2. Rezultate pe Continente - Grid complet responsive */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {['Europa', 'USA', 'Asia'].map(region => (
-          <div key={region} className="glass-vibrant p-6 rounded-[2rem] border-white/5">
-            <h4 className="text-[10px] uppercase tracking-[0.3em] text-emerald-400 mb-4 font-mono">{region}</h4>
-            <div className="space-y-3">
+          <div key={region} className="glass-vibrant p-8 rounded-[2.5rem] border border-white/5 flex flex-col h-full">
+            <h4 className="text-[10px] uppercase tracking-[0.4em] text-emerald-400 mb-6 font-mono font-bold">
+              {region}
+            </h4>
+            
+            <div className="space-y-4 flex-1">
               {filteredCities.filter(c => c.region === region).length > 0 ? (
                 filteredCities.filter(c => c.region === region).map(city => (
-                  <div key={city.cityName} className="flex justify-between items-center group cursor-default">
-                    <span className="text-white/80 group-hover:text-white transition-colors">{city.cityName}</span>
-                    <span className="font-bold text-emerald-400">{city.tempC}°</span>
+                  <div key={city.cityName} className="flex justify-between items-center group cursor-default border-b border-white/[0.03] pb-2 last:border-0">
+                    <span className="text-white/80 group-hover:text-white transition-colors text-base">
+                      {city.cityName}
+                    </span>
+                    <span className="font-bold text-emerald-400 font-mono">
+                      {city.tempC}°
+                    </span>
                   </div>
                 ))
               ) : (
-                <span className="text-white/10 text-xs italic">No location found</span>
+                <div className="flex items-center justify-center py-4 bg-white/[0.02] rounded-2xl border border-dashed border-white/10">
+                   <span className="text-white/20 text-[10px] uppercase tracking-widest italic">No location found</span>
+                </div>
               )}
             </div>
           </div>
