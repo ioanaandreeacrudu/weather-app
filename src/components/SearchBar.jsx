@@ -47,7 +47,7 @@ export default function SearchBar({ onSearch, isLoading }) {
           type="text"
           value={city}
           onChange={(e) => setCity(e.target.value)}
-          placeholder="Caută un oraș (ex: București, London)..."
+          placeholder="Caută un oraș (ex: Iasi, Londra)..."
           disabled={isLoading}
           className="
             w-full pl-14 pr-36 py-5
