@@ -1,44 +1,34 @@
 /**
  * SearchBar.jsx
  * ─────────────────────────────────────────────────────────────
- * RESPONSIBILITY: City search input and submit button.
- *
- * Developer note (Team separation):
- *   → This file is owned by the "UI" developer.
- *   → It emits onSearch(cityName) — it does NOT call the API.
+ * RESPONSIBILITY: City search input with glassmorphism style.
+ * Matches the updated dashboard aesthetic.
  * ─────────────────────────────────────────────────────────────
  */
 
 import { useState } from 'react';
 
-/**
- * SearchBar
- *
- * @param {object}   props
- * @param {function} props.onSearch   - Called with city name string when user submits
- * @param {boolean}  props.isLoading  - Disables input & button while fetching
- */
 export default function SearchBar({ onSearch, isLoading }) {
   const [city, setCity] = useState('');
 
-  /** Handle form submission (button click OR Enter key) */
   function handleSubmit(e) {
     e.preventDefault();
     const trimmed = city.trim();
     if (trimmed) {
       onSearch(trimmed);
+      // Opțional: setCity(''); // Curăță input-ul după căutare
     }
   }
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full max-w-xl mx-auto"
+      className="w-full max-w-2xl mx-auto z-20 animate-fade-in"
       aria-label="City weather search"
     >
-      <div className="relative flex items-center gap-3">
-        {/* ── Search Icon ── */}
-        <div className="absolute left-4 text-white/40 pointer-events-none select-none">
+      <div className="relative flex items-center group">
+        {/* ── Search Icon (Stânga) ── */}
+        <div className="absolute left-6 text-white/30 pointer-events-none transition-colors group-focus-within:text-emerald-400">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-5 h-5"
@@ -52,69 +42,55 @@ export default function SearchBar({ onSearch, isLoading }) {
           </svg>
         </div>
 
-        {/* ── Text Input ── */}
+        {/* ── Text Input (Ultra Glass) ── */}
         <input
           type="text"
           value={city}
           onChange={(e) => setCity(e.target.value)}
-          placeholder="Enter a city name…"
+          placeholder="Caută un oraș (ex: București, London)..."
           disabled={isLoading}
-          aria-label="City name"
           className="
-            w-full pl-12 pr-4 py-4
-            bg-white/10 backdrop-blur-md
-            border border-white/20
-            rounded-2xl
-            font-body text-white placeholder-white/40
+            w-full pl-14 pr-36 py-5
+            bg-white/[0.03] backdrop-blur-xl
+            border border-white/10
+            rounded-[2.5rem]
+            font-body text-white placeholder-white/20
             text-base
-            focus:outline-none focus:ring-2 focus:ring-white/40 focus:border-white/40
+            focus:outline-none focus:bg-white/[0.07] 
+            focus:border-emerald-500/30 focus:ring-4 focus:ring-emerald-500/5
             disabled:opacity-50 disabled:cursor-not-allowed
-            transition-all duration-200
+            transition-all duration-300
           "
         />
 
-        {/* ── Submit Button ── */}
-        <button
-          type="submit"
-          disabled={isLoading || !city.trim()}
-          aria-label="Search"
-          className="
-            flex-shrink-0
-            px-6 py-4
-            bg-white text-gray-900
-            font-body font-semibold text-sm
-            rounded-2xl
-            hover:bg-white/90
-            active:scale-95
-            disabled:opacity-40 disabled:cursor-not-allowed
-            transition-all duration-200
-            whitespace-nowrap
-          "
-        >
-          {isLoading ? (
-            <span className="flex items-center gap-2">
-              <svg
-                className="w-4 h-4 animate-spin"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  className="opacity-25"
-                  cx="12" cy="12" r="10"
-                  stroke="currentColor" strokeWidth="4"
-                />
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8v8H4z"
-                />
-              </svg>
-              Fetching…
-            </span>
-          ) : (
-            'Search'
-          )}
-        </button>
+        {/* ── Submit Button (Floating Right) ── */}
+        <div className="absolute right-2">
+          <button
+            type="submit"
+            disabled={isLoading || !city.trim()}
+            className="
+              px-8 py-3.5
+              bg-emerald-500 hover:bg-emerald-400
+              text-slate-950 font-bold text-sm
+              rounded-[2rem]
+              shadow-lg shadow-emerald-500/20
+              active:scale-95
+              disabled:opacity-40 disabled:grayscale disabled:cursor-not-allowed
+              transition-all duration-300
+              whitespace-nowrap
+              flex items-center gap-2
+            "
+          >
+            {isLoading ? (
+              <>
+                <div className="h-4 w-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
+                <span>Căutare...</span>
+              </>
+            ) : (
+              'Căutare'
+            )}
+          </button>
+        </div>
       </div>
     </form>
   );

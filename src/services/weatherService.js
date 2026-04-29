@@ -2,12 +2,7 @@
  * weatherService.js
  * ─────────────────────────────────────────────────────────────
  * RESPONSIBILITY: All communication with the OpenWeatherMap API.
- * UI components MUST NOT contain fetch/axios logic — they call
- * functions from this module only.
- *
- * Developer note (Team separation):
- *   → This file is owned by the "Logic" developer.
- *   → UI developers consume the exported functions only.
+ * Includes: Current Weather & 5-Day Forecast.
  * ─────────────────────────────────────────────────────────────
  */
 
@@ -19,32 +14,26 @@ const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
 /**
  * Axios instance pre-configured with the base URL and API key.
- * Using an instance keeps all API concerns in one place.
  */
 const weatherAPI = axios.create({
   baseURL: BASE_URL,
   params: {
     appid: API_KEY,
-    units: 'metric', // Always fetch in Celsius; conversion is done client-side
+    units: 'metric', 
   },
 });
 
 // ─── Data Fetching ────────────────────────────────────────────
 
 /**
- * Fetches current weather data for a given city name.
- *
- * @param {string} city - The name of the city (e.g. "London")
- * @returns {Promise<WeatherData>} Normalised weather data object
- * @throws Will throw an Error with a user-friendly message on failure
+ * Fetches current weather data for a given city.
  */
 export async function fetchWeatherByCity(city) {
   if (!city || city.trim() === '') {
-    throw new Error('Please enter a city name.');
+    throw new Error('Te rugăm să introduci numele unui oraș.');
   }
 
-  if (!API_KEY || API_KEY === 'your_api_key_here') {
-    // ── Demo mode: return mock data so the app is usable without a key ──
+  if (!API_KEY || API_KEY === 'api_key_here') {
     return getMockWeatherData(city);
   }
 
@@ -54,48 +43,52 @@ export async function fetchWeatherByCity(city) {
     });
     return normaliseWeatherData(data);
   } catch (error) {
-    // Translate HTTP / network errors into human-readable messages
-    if (error.response) {
-      const status = error.response.status;
-      if (status === 404) throw new Error(`City "${city}" not found. Check the spelling and try again.`);
-      if (status === 401) throw new Error('Invalid API key. Please check your .env configuration.');
-      if (status === 429) throw new Error('Too many requests. Please wait a moment before trying again.');
-      throw new Error(`Weather service error (${status}). Please try again.`);
-    }
-    if (error.request) {
-      throw new Error('No response from weather service. Check your internet connection.');
-    }
-    throw new Error('An unexpected error occurred. Please try again.');
+    handleApiError(error, city);
   }
 }
 
-// ─── Data Normalisation ───────────────────────────────────────
-
 /**
- * Transforms the raw OpenWeatherMap API response into a clean,
- * predictable shape used throughout the application.
- *
- * @param {object} raw - Raw API response object
- * @returns {WeatherData}
- *
- * @typedef {object} WeatherData
- * @property {string}  cityName
- * @property {string}  country
- * @property {number}  tempC         - Temperature in Celsius
- * @property {number}  feelsLikeC    - Feels-like temperature in Celsius
- * @property {number}  humidity      - Humidity percentage (0-100)
- * @property {number}  windSpeed     - Wind speed in m/s
- * @property {number}  windDeg       - Wind direction in degrees (0-360)
- * @property {number}  pressure      - Atmospheric pressure in hPa
- * @property {number}  visibility    - Visibility in meters
- * @property {string}  description   - Human-readable weather description
- * @property {string}  icon          - OpenWeatherMap icon code
- * @property {string}  mainCondition - Main weather condition (e.g. "Rain")
- * @property {number}  sunrise       - Sunrise time as Unix timestamp (UTC)
- * @property {number}  sunset        - Sunset time as Unix timestamp (UTC)
- * @property {number}  timezone      - Timezone offset in seconds from UTC
- * @property {number}  clouds        - Cloud coverage percentage
+ * Fetches 5-day forecast data for a given city.
  */
+export async function fetchForecast(city) {
+  if (!API_KEY || API_KEY === 'api_key_here') {
+    return getMockForecastData();
+  }
+
+  try {
+    const { data } = await weatherAPI.get('/forecast', {
+      params: { q: city.trim() },
+    });
+
+    // API-ul returnează date la fiecare 3 ore (40 de intrări).
+    // Filtrăm pentru a lua doar o prognoză pe zi (ora 12:00:00).
+    return data.list
+      .filter(item => item.dt_txt.includes("12:00:00"))
+      .map(item => ({
+        date: new Date(item.dt * 1000).toLocaleDateString('ro-RO', { weekday: 'short' }),
+        temp: Math.round(item.main.temp),
+        icon: item.weather[0].icon,
+        condition: item.weather[0].main
+      }));
+  } catch (error) {
+    console.error("Forecast Error:", error);
+    return []; // Returnăm un array gol în caz de eroare la prognoză pentru a nu bloca aplicația
+  }
+}
+
+// ─── Helper Functions ─────────────────────────────────────────
+
+function handleApiError(error, city) {
+  if (error.response) {
+    const status = error.response.status;
+    if (status === 404) throw new Error(`Orașul "${city}" nu a fost găsit.`);
+    if (status === 401) throw new Error('API Key invalid.');
+    if (status === 429) throw new Error('Prea multe cereri. Revino mai târziu.');
+    throw new Error(`Eroare service (${status}).`);
+  }
+  throw new Error('Eroare de conexiune la internet.');
+}
+
 function normaliseWeatherData(raw) {
   return {
     cityName:      raw.name,
@@ -117,34 +110,35 @@ function normaliseWeatherData(raw) {
   };
 }
 
-// ─── Mock Data (Demo / No API Key) ────────────────────────────
+// ─── Mock Data (Demo Mode) ────────────────────────────────────
 
-/**
- * Returns realistic mock data for demo purposes.
- * Triggered when no valid API key is configured.
- *
- * @param {string} city
- * @returns {WeatherData}
- */
 function getMockWeatherData(city) {
   const now = Math.floor(Date.now() / 1000);
   return {
-    cityName:      city.charAt(0).toUpperCase() + city.slice(1),
-    country:       'RO',
-    tempC:         18,
-    feelsLikeC:    16,
-    humidity:      62,
-    windSpeed:     4.2,
-    windDeg:       220,
-    pressure:      1015,
-    visibility:    10000,
-    description:   'scattered clouds',
-    icon:          '03d',
+    cityName: city.charAt(0).toUpperCase() + city.slice(1),
+    country: 'RO',
+    tempC: 18,
+    feelsLikeC: 16,
+    humidity: 62,
+    windSpeed: 4.2,
+    pressure: 1015,
+    description: 'scattered clouds',
+    icon: '03d',
     mainCondition: 'Clouds',
-    sunrise:       now - 3600 * 5,
-    sunset:        now + 3600 * 5,
-    timezone:      7200,
-    clouds:        40,
-    _isDemo:       true, // flag for UI to show demo badge
+    sunrise: now - 3600 * 5,
+    sunset: now + 3600 * 5,
+    timezone: 7200,
+    clouds: 40,
+    _isDemo: true,
   };
+}
+
+function getMockForecastData() {
+  return [
+    { date: 'Mâine', temp: 20, icon: '01d', condition: 'Clear' },
+    { date: 'Mie', temp: 19, icon: '02d', condition: 'Clouds' },
+    { date: 'Joi', temp: 15, icon: '10d', condition: 'Rain' },
+    { date: 'Vin', temp: 17, icon: '04d', condition: 'Clouds' },
+    { date: 'Sâm', temp: 22, icon: '01d', condition: 'Clear' },
+  ];
 }
