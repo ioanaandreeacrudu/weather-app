@@ -125,3 +125,21 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+@keyframes float-x {
+  0% { transform: translateX(0vw); }
+  100% { transform: translateX(110vw); }
+}
+
+@keyframes float-x-reverse {
+  0% { transform: translateX(0vw); }
+  100% { transform: translateX(-110vw); }
+}
+
+.animate-float-x {
+  animation: float-x 40s linear infinite;
+}
+
+.animate-float-x-reverse {
+  animation: float-x-reverse 55s linear infinite;
+}

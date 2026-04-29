@@ -135,10 +135,27 @@ function getMockWeatherData(city) {
 
 function getMockForecastData() {
   return [
-    { date: 'Mâine', temp: 20, icon: '01d', condition: 'Clear' },
-    { date: 'Mie', temp: 19, icon: '02d', condition: 'Clouds' },
-    { date: 'Joi', temp: 15, icon: '10d', condition: 'Rain' },
-    { date: 'Vin', temp: 17, icon: '04d', condition: 'Clouds' },
-    { date: 'Sâm', temp: 22, icon: '01d', condition: 'Clear' },
+    { date: 'Tommorow', temp: 20, icon: '01d', condition: 'Clear' },
+    { date: 'Monday', temp: 19, icon: '02d', condition: 'Clouds' },
+    { date: 'Tuesday', temp: 15, icon: '10d', condition: 'Rain' },
+    { date: 'Wednesday', temp: 17, icon: '04d', condition: 'Clouds' },
+    { date: 'Thursday', temp: 22, icon: '01d', condition: 'Clear' },
   ];
 }
+
+/**
+ * Convertește gradele vântului în text conform cerinței.
+ * Acoperă cele 16 direcții cardinale.
+ */
+export const getWindDirectionText = (deg) => {
+  const directions = [
+    "Nord", "Nord-Nord-Est", "Nord-Est", "Est-Nord-Est",
+    "Est", "Est-Sud-Est", "Sud-Est", "Sud-Sud-Est",
+    "Sud", "Sud-Sud-Vest", "Sud-Vest", "Vest-Sud-Vest",
+    "Vest", "Vest-Nord-Vest", "Nord-Vest", "Nord-Nord-Vest"
+  ];
+  
+  // Împărțim 360 grade la 16 sectoare de 22.5 grade
+  const index = Math.round((deg % 360) / 22.5) % 16;
+  return directions[index];
+};

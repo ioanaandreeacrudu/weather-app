@@ -13,15 +13,23 @@
  * Each entry covers a 45-degree arc centred on the named direction.
  */
 const DIRECTIONS = [
-  { label: 'N',  short: 'North',      min: 337.5, max: 360   },
-  { label: 'N',  short: 'North',      min: 0,     max: 22.5  },
-  { label: 'NE', short: 'North-East', min: 22.5,  max: 67.5  },
-  { label: 'E',  short: 'East',       min: 67.5,  max: 112.5 },
-  { label: 'SE', short: 'South-East', min: 112.5, max: 157.5 },
-  { label: 'S',  short: 'South',      min: 157.5, max: 202.5 },
-  { label: 'SW', short: 'South-West', min: 202.5, max: 247.5 },
-  { label: 'W',  short: 'West',       min: 247.5, max: 292.5 },
-  { label: 'NW', short: 'North-West', min: 292.5, max: 337.5 },
+  { label: 'N',   short: 'North',               min: 348.75, max: 360   },
+  { label: 'N',   short: 'North',               min: 0,      max: 11.25  },
+  { label: 'NNE', short: 'North-North-East',      min: 11.25,  max: 33.75  },
+  { label: 'NE',  short: 'North-East',           min: 33.75,  max: 56.25  },
+  { label: 'ENE', short: 'East-North-East',       min: 56.25,  max: 78.75  },
+  { label: 'E',   short: 'East',                min: 78.75,  max: 101.25 },
+  { label: 'ESE', short: 'East-South-East',        min: 101.25, max: 123.75 },
+  { label: 'SE',  short: 'South-East',            min: 123.75, max: 146.25 },
+  { label: 'SSE', short: 'South-South-East',        min: 146.25, max: 168.75 },
+  { label: 'S',   short: 'South',                min: 168.75, max: 191.25 },
+  { label: 'SSW', short: 'South-South-West',       min: 191.25, max: 213.75 },
+  { label: 'SW',  short: 'South-West',           min: 213.75, max: 236.25 },
+  { label: 'WSW', short: 'West-South-West',      min: 236.25, max: 258.75 },
+  { label: 'W',   short: 'West',               min: 258.75, max: 281.25 },
+  { label: 'WNW', short: 'West-North-West',     min: 281.25, max: 303.75 },
+  { label: 'NW',  short: 'North-West',          min: 303.75, max: 326.25 },
+  { label: 'NNW', short: 'North-North-Vest',     min: 326.25, max: 348.75 },
 ];
 
 /**

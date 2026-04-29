@@ -7,6 +7,7 @@ import GlobalStats from './components/GlobalStats';
 import WeatherInsights from './components/WeatherInsights';
 import WeatherParticles from './components/WeatherParticles';
 import ForecastRow from './components/ForecastRow';
+import WeatherExplorer from './components/WeatherExplorer';
 
 function App() {
   const [weather, setWeather] = useState(null);
@@ -27,7 +28,6 @@ function App() {
     setLoading(true);
     setError(null);
     try {
-      // Lansăm ambele cereri în paralel pentru performanță optimă
       const [weatherData, forecastData] = await Promise.all([
         fetchWeatherByCity(city),
         fetchForecast(city)
@@ -49,9 +49,10 @@ function App() {
       {/* 1. FUNDAL ȘI EFECTE ATMOSFERICE */}
       <div className="animate-mesh" />
       <div className="weather-overlay" />
-      {weather && <WeatherParticles condition={weather.mainCondition} />}
+      {/* Transmitem tot obiectul weather pentru a detecta zi/noapte (sunrise/sunset) */}
+      {weather && <WeatherParticles weather={weather} />}
 
-      {/* 2. HEADER - Logotip tipografic interactiv */}
+      {/* 2. HEADER - Logotip tipografic bicolor */}
       <header className="text-center z-10 mb-8 animate-fade-in flex flex-col items-center">
         <h1 
           onClick={handleBack}
@@ -64,7 +65,7 @@ function App() {
           </span>
         </h1>
         <p className="text-emerald-400 font-mono tracking-[0.5em] text-[10px] uppercase opacity-80">
-          Meteorological Friend 
+          Meteorological Friend
         </p>
       </header>
 
@@ -81,11 +82,11 @@ function App() {
             className="flex items-center gap-2 text-white/30 hover:text-white font-mono text-[10px] uppercase tracking-[0.2em] transition-all group"
           >
             <span className="group-hover:-translate-x-1 transition-transform">←</span> 
-            Back to Home
+            Back Home
           </button>
         )}
 
-        {/* Listă Favorite (Container subtil) */}
+        {/* Listă Favorite */}
         <div className="w-full bg-white/[0.02] border border-white/[0.05] p-6 rounded-[2.5rem] backdrop-blur-sm animate-scale-in">
            <FavoritesBar onSelectCity={handleSearch} currentCity={weather?.cityName} />
         </div>
@@ -97,7 +98,7 @@ function App() {
           </div>
         )}
 
-        {/* DASHBOARD REZULTATE (Weather actual + Prognoză) */}
+        {/* DASHBOARD REZULTATE */}
         {weather && (
           <div className="w-full space-y-8 animate-fade-in">
             <WeatherCard weather={weather} />
@@ -105,13 +106,55 @@ function App() {
           </div>
         )}
 
-        {/* LANDING PAGE (Global Stats + Insights) */}
+        {/* LANDING PAGE - Aranjament vertical (Stacked) */}
         {!weather && !loading && !error && (
-          <div className="w-full space-y-12 animate-slide-up flex flex-col items-center">
-            <GlobalStats />
-            <WeatherInsights />
+          <div className="w-full space-y-16 animate-slide-up flex flex-col items-center">
             
-            <div className="opacity-20 text-[10px] font-mono uppercase tracking-[0.5em] mt-10">
+            {/* SECȚIUNEA 1: Global Weather Explorer */}
+            <div className="w-full space-y-8 flex flex-col items-center">
+              <div className="text-center">
+                <h2 className="text-2xl font-display text-white mb-2">Global Weather Explorer</h2>
+                <p className="text-white/30 text-[10px] uppercase tracking-[0.3em] font-mono">
+                  Select the desired atmosphere on the globe
+                </p>
+              </div>
+              <WeatherExplorer onSelectCity={handleSearch} />
+            </div>
+
+            {/* SEPARATOR MODERN CU INDICATOR LIVE */}
+            <div className="w-full flex items-center gap-4 py-8 animate-fade-in">
+              <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-emerald-500/10 to-emerald-500/30" />
+              
+              <div className="flex flex-col items-center gap-2 px-6">
+                <div className="flex items-center gap-3">
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                  </span>
+                  <h3 className="text-white font-display text-xl md:text-2xl tracking-[0.2em] font-bold uppercase">
+                    Live <span className="text-emerald-400">Global</span> Watch
+                  </h3>
+                </div>
+                <p className="text-white/40 text-sm font-mono tracking-widest uppercase">
+                  Worldwide Meteorological Network
+                </p>
+              </div>
+
+              <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent via-emerald-500/10 to-emerald-500/30" />
+            </div>
+
+            {/* SECȚIUNEA 2: Global Watch (Orașe cheie) */}
+            <div className="w-full flex flex-col items-center">
+               <GlobalStats />
+            </div>
+
+            {/* SECȚIUNEA 3: Climate Insights (Facts) */}
+            <div className="w-full max-w-3xl flex flex-col items-center">
+               <WeatherInsights />
+            </div>
+            
+            {/* Footer / Branding */}
+            <div className="opacity-20 text-[10px] font-mono uppercase tracking-[0.5em] mt-10 text-center">
               Precision Monitoring System / Powered by Open Weather API  
             </div>
           </div>

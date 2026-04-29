@@ -3,27 +3,27 @@ import { useState } from 'react';
 const insights = [
   {
     tag: "Climate Fact",
-    text: "Fulgerul este de 5 ori mai fierbinte decât suprafața Soarelui, atingând temperaturi de aproximativ 30,000°C.",
+    text: "Lightning is 5 times hotter than the surface of the Sun, reaching temperatures of approximately 30,000°C.",
     icon: "⚡"
   },
   {
     tag: "Record",
-    text: "Cea mai mare piatră de grindină înregistrată vreodată a avut un diametru de 20 cm, similar cu mărimea unei mingi de volei.",
+    text: "The largest recorded hailstone was 20 cm in diameter, similar in size to a volleyball.",
     icon: "🧊"
   },
   {
     tag: "Atmosphere",
-    text: "Cerul nu este albastru din cauza reflexiei oceanului, ci din cauza modului în care atmosfera împrăștie lumina solară.",
+    text: "The sky is not blue due to the reflection of the ocean, but because of how the atmosphere scatters sunlight.",
     icon: "🌌"
   },
   {
     tag: "Nature",
-    text: "Greierii pot fi folosiți pentru a estima temperatura de afară numărând de câte ori scot sunete în 15 secunde.",
+    text: "Crickets can be used to estimate the temperature outside by counting how many times they chirp in 15 seconds.",
     icon: "🦗"
   },
   {
     tag: "Extreme",
-    text: "În Antarctica, există o cascadă numită 'Cascada de Sânge' care curge cu apă sărată de culoare roșu aprins.",
+    text: "In Antarctica, there is a waterfall called 'The Blood Falls' which flows with salty water of a bright red color.",
     icon: "🩸"
   }
 ];

@@ -16,7 +16,7 @@ export default function SearchBar({ onSearch, isLoading }) {
     const trimmed = city.trim();
     if (trimmed) {
       onSearch(trimmed);
-      // Opțional: setCity(''); // Curăță input-ul după căutare
+    
     }
   }
 
@@ -47,7 +47,7 @@ export default function SearchBar({ onSearch, isLoading }) {
           type="text"
           value={city}
           onChange={(e) => setCity(e.target.value)}
-          placeholder="Caută un oraș (ex: Iasi, Londra)..."
+          placeholder="Search for a city (e.g. Iasi, London)..."
           disabled={isLoading}
           className="
             w-full pl-14 pr-36 py-5
@@ -84,10 +84,10 @@ export default function SearchBar({ onSearch, isLoading }) {
             {isLoading ? (
               <>
                 <div className="h-4 w-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
-                <span>Căutare...</span>
+                <span>Searching...</span>
               </>
             ) : (
-              'Căutare'
+              'Search'
             )}
           </button>
         </div>

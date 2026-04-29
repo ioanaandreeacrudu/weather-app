@@ -7,6 +7,7 @@
  * - Integrare imagini dinamice Wikipedia
  * - Sistem de Favorite (Local Storage)
  * - Recomandări AI bazate pe condiții
+ * - Direcția vântului convertită în puncte cardinale (Cerință Proiect 11)
  * ─────────────────────────────────────────────────────────────
  */
 
@@ -16,6 +17,7 @@ import { formatLocalTime, getTodayLabel } from '../utils/time.js';
 import { getRecommendations, getRecommendationClasses } from '../utils/recommendation.js';
 import { fetchCityImage } from '../services/wikiService';
 import { toggleFavorite, getFavorites } from '../utils/favorites';
+import { degreesToCardinalFull } from "../utils/windDirection.js";
 
 export default function WeatherCard({ weather }) {
   const [unit, setUnit] = useState('C');
@@ -105,7 +107,6 @@ export default function WeatherCard({ weather }) {
           </div>
           
           <div className="text-right flex flex-col items-end">
-            {/* Click pe temperatură pentru conversie rapidă */}
             <div 
               onClick={() => setUnit(unit === 'C' ? 'F' : 'C')}
               className={`text-[10rem] md:text-[12rem] font-display font-bold leading-[0.8] tracking-tighter drop-shadow-2xl cursor-pointer select-none transition-colors ${getTempColorClass(weather.tempC)}`}
@@ -131,7 +132,7 @@ export default function WeatherCard({ weather }) {
         {/* Recomandări AI */}
         <div className="lg:col-span-4 space-y-4">
           <div className="flex items-center justify-between px-4">
-            <h3 className="text-white/40 font-mono text-[10px] uppercase tracking-[0.3em]">AI Weather Analysis</h3>
+            <h3 className="text-white/40 font-mono text-[10px] uppercase tracking-[0.3em]">Weather analysis</h3>
             <span className="h-[1px] flex-1 bg-white/10 ml-4"></span>
           </div>
           
@@ -155,7 +156,17 @@ export default function WeatherCard({ weather }) {
         {/* Metrici Detaliate */}
         <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-4">
            <MetricBox label="Humidity" value={`${weather.humidity}%`} icon="💧" color="text-blue-400" />
-           <MetricBox label="Wind Speed" value={`${weather.windSpeed} m/s`} icon="💨" color="text-indigo-400" />
+           
+           {/* MetricBox pentru Vânt actualizat cu direcție textuală */}
+           <MetricBox 
+              label="Wind Condition" 
+              value={`${weather.windSpeed} m/s`} 
+              subValue={degreesToCardinalFull(weather.windDeg)}
+              windDeg={weather.windDeg} // Trimitem și gradele pentru rotație
+              icon="💨" 
+              color="text-indigo-400" 
+           />
+
            <MetricBox label="Pressure" value={`${weather.pressure} hPa`} icon="⏲️" color="text-emerald-400" />
            <MetricBox label="Cloud Cover" value={`${weather.clouds}%`} icon="☁️" color="text-slate-400" />
            <MetricBox label="Sunrise" value={sunriseTime} icon="🌅" color="text-amber-400" />
@@ -178,12 +189,33 @@ export default function WeatherCard({ weather }) {
   );
 }
 
-function MetricBox({ label, value, icon, color }) {
+/// Componentă internă pentru casetele de metrici
+
+function MetricBox({ label, value, subValue, icon, color }) {
   return (
     <div className="bg-white/5 border border-white/10 p-10 rounded-[3rem] flex flex-col items-center justify-center text-center group hover:bg-white/10 transition-all backdrop-blur-xl border-t-white/20">
-      <span className="text-4xl mb-4 group-hover:rotate-12 transition-transform duration-500">{icon}</span>
-      <div className={`text-3xl font-bold font-display tracking-tight ${color}`}>{value}</div>
-      <div className="text-[10px] uppercase tracking-[0.2em] text-white/30 mt-2 font-mono">{label}</div>
+      
+      {/* Main Icon */}
+      <span className="text-4xl mb-4 group-hover:rotate-12 transition-transform duration-500">
+        {icon}
+      </span>
+
+      {/* Main Value (e.g., 3.6 m/s) */}
+      <div className={`text-3xl font-bold font-display tracking-tight ${color}`}>
+        {value}
+      </div>
+      
+      {/* Direction Text (e.g., WEST) */}
+      {subValue && (
+        <div className="text-white/60 text-xs font-medium mt-1 uppercase tracking-wider">
+          {subValue}
+        </div>
+      )}
+      
+      {/* Bottom Label (e.g., WIND CONDITION) */}
+      <div className="text-[10px] uppercase tracking-[0.2em] text-white/30 mt-2 font-mono">
+        {label}
+      </div>
     </div>
   );
 }
