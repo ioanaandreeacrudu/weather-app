@@ -6,7 +6,6 @@
  * ─────────────────────────────────────────────────────────────
  * Smart recommendation engine.
  * Analyses weather conditions and produces actionable suggestions.
- *
  * Pure functions — no side effects, easy to unit-test.
  * Developer note: Owned by the "Logic" developer.
  * ─────────────────────────────────────────────────────────────

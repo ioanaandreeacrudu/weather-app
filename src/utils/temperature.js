@@ -5,7 +5,6 @@
  * @contribution Dezvoltarea algoritmilor de conversie și a logicii pentru recomandările de haine/accesorii.
  * ─────────────────────────────────────────────────────────────
  * Utility functions for temperature conversion and formatting.
- *
  * Pure functions — no side effects, easy to unit-test.
  * Developer note: Owned by the "Logic" developer.
  * ─────────────────────────────────────────────────────────────

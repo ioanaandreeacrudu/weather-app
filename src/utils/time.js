@@ -1,8 +1,9 @@
 /**
  * @file time.js
- * @description Modul de calcul și procesare a datelor meteorologice.
+ * @description Procesarea datelor meteorologice.
  * @author Vornicu Denisa Ștefania
- * @contribution Dezvoltarea algoritmilor de conversie și a logicii pentru recomandările de haine/accesorii.
+ * @contribution Formats a Unix timestamp (UTC) adjusted by a timezone offset into
+ * a human-readable local time string (HH:MM). Returns the current day name and date string.
  * ─────────────────────────────────────────────────────────────
  * Utility functions for formatting time values from the API.
  * ─────────────────────────────────────────────────────────────

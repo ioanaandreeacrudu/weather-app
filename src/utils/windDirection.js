@@ -2,10 +2,8 @@
  * @file windDirection.js
  * @description Modul de calcul și procesare a datelor meteorologice.
  * @author Vornicu Denisa Ștefania
- * @contribution Dezvoltarea algoritmilor de conversie și a logicii pentru recomandările de haine/accesorii.
- * Utility functions for interpreting wind data.
+ * @contribution  Utility functions for interpreting wind data.
  * Pure functions — no side effects, easy to unit-test.
- * Developer note: Owned by the "Logic" developer.
  * ─────────────────────────────────────────────────────────────
  */
 

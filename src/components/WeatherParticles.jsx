@@ -2,7 +2,7 @@
  * @file WeatherParticles.jsx
  * @description Sistem de particule pentru redarea vizuală a condițiilor atmosferice.
  * @author Vornicu Denisa Ștefania
- * @contribution [CONTRIBUȚIE SUPLIMENTARĂ] Dezvoltarea efectelor vizuale dinamice (ploaie, zăpadă, ceață) pentru o experiență imersivă.
+ * @contribution  Dezvoltarea efectelor vizuale dinamice pentru o experiență imersivă.
  */
 import React from 'react';
 

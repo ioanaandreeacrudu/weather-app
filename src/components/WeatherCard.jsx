@@ -10,7 +10,7 @@
  * - Integrare imagini dinamice Wikipedia
  * - Sistem de Favorite (Local Storage)
  * - Recomandări AI bazate pe condiții
- * - Direcția vântului convertită în puncte cardinale (Cerință Proiect 11)
+ * - Direcția vântului convertită în puncte cardinale
  * ─────────────────────────────────────────────────────────────
  */
 
