@@ -1,3 +1,10 @@
+/**
+ * @file App.css
+ * @description Sistemul de design al aplicației deVreme.
+ * @author Crudu Ioana Andreea
+ * @contribution Implementarea design-ului modern (Glassmorphism) folosind motorul Tailwind CSS v4.
+ */
+
 .counter {
   font-size: 16px;
   padding: 5px 10px;

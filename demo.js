@@ -1,3 +1,9 @@
+/**
+ * @file demo.js
+ * @description Script de testare automată End-to-End (E2E) utilizând Puppeteer.
+ * @author Vornicu Denisa Ștefania
+ * @contribution [CONTRIBUȚIE SUPLIMENTARĂ] Automatizarea fluxurilor de navigare și validarea design-ului responsive.
+ */
 import puppeteer from 'puppeteer';
 
 (async () => {

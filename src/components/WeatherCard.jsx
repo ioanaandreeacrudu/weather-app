@@ -1,5 +1,8 @@
 /**
- * WeatherCard.jsx - Dashboard Desktop Complet
+ * @file WeatherCard.jsx
+ * @description Implementarea componentei reactive pentru interfața utilizator.
+ * @author Crudu Ioana Andreea
+ * @contribution Dezvoltarea UI/UX, gestionarea stării (state) și integrarea Tailwind CSS v4.
  * ─────────────────────────────────────────────────────────────
  * Funcționalități: 
  * - Conversie C/F (click pe grade sau buton)

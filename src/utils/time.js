@@ -1,5 +1,8 @@
 /**
- * time.js
+ * @file time.js
+ * @description Modul de calcul și procesare a datelor meteorologice.
+ * @author Vornicu Denisa Ștefania
+ * @contribution Dezvoltarea algoritmilor de conversie și a logicii pentru recomandările de haine/accesorii.
  * ─────────────────────────────────────────────────────────────
  * Utility functions for formatting time values from the API.
  * ─────────────────────────────────────────────────────────────

@@ -1,3 +1,10 @@
+/**
+ * @file App.jsx
+ * @description Implementarea componentei reactive pentru interfața utilizator.
+ * @author Crudu Ioana Andreea
+ * @contribution Dezvoltarea UI/UX, gestionarea stării (state) și integrarea Tailwind CSS v4.
+ */
+
 import { useState } from 'react';
 import { fetchWeatherByCity, fetchForecast } from './services/weatherService';
 import SearchBar from './components/SearchBar';

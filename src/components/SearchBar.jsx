@@ -1,6 +1,8 @@
-/*** ─────────────────────────────────────────────────────────────
- * RESPONSIBILITY: City search input with glassmorphism style.
- * ─────────────────────────────────────────────────────────────
+/**
+ * @file SearchBar.jsx
+ * @description Implementarea componentei reactive pentru interfața utilizator.
+ * @author Crudu Ioana Andreea
+ * @contribution Dezvoltarea UI/UX, gestionarea stării (state) și integrarea Tailwind CSS v4.
  */
 
 import { useState } from 'react';

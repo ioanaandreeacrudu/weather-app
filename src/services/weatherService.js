@@ -1,6 +1,8 @@
 /**
- * weatherService.js
- * ─────────────────────────────────────────────────────────────
+ * @file weatherService.js
+ * @description Modul de integrare cu OpenWeatherMap API pentru preluarea datelor meteo în timp real.
+ * @author Crudu Ioana Andreea
+ * @contribution Implementarea cererilor asincrone și gestionarea erorilor de rețea/oraș inexistent.
  * RESPONSIBILITY: All communication with the OpenWeatherMap API.
  * Includes: Current Weather & 5-Day Forecast.
  * ─────────────────────────────────────────────────────────────

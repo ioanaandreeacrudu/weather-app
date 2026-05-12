@@ -1,3 +1,9 @@
+/**
+ * @file favorites.js
+ * @description Modul de calcul și procesare a datelor meteorologice.
+ * @author Vornicu Denisa Ștefania
+ * @contribution Dezvoltarea algoritmilor de conversie și a logicii pentru recomandările de haine/accesorii.
+ */
 const STORAGE_KEY = 'weather_favorites';
 
 export const getFavorites = () => {

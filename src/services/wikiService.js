@@ -1,3 +1,10 @@
+/**
+ * @file wikiService.js
+ * @description Serviciu de integrare cu Wikipedia API pentru context vizual dinamic.
+ * @author Vornicu Denisa Ștefania
+ * @contribution [CONTRIBUȚIE SUPLIMENTARĂ] Preluarea imaginilor reprezentative pentru orașele căutate.
+ */
+
 import axios from 'axios';
 
 export async function fetchCityImage(cityName) {

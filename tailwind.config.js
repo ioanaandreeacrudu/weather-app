@@ -1,3 +1,9 @@
+/**
+ * @file tailwind.config.js
+ * @description Configurarea motorului de design Tailwind CSS pentru aplicația deVreme.
+ * @author Crudu Ioana Andreea
+ * @contribution Definirea sistemului de design, a tipografiei personalizate și a bibliotecii de animații CSS.
+ */
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [

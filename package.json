@@ -1,4 +1,5 @@
 {
+  "//": "Proiect realizat în colaborare de Crudu Ioana Andreea (Setup, UI, Deployment) și Vornicu Denisa Ștefania (Logic, Testing, UML).",
   "name": "weather-app",
   "private": true,
   "version": "1.0.0",

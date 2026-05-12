@@ -1,5 +1,8 @@
 /**
- * recommendation.js
+ * @file recommendation.js
+ * @description Modul de calcul și procesare a datelor meteorologice.
+ * @author Vornicu Denisa Ștefania
+ * @contribution Dezvoltarea algoritmilor de conversie și a logicii pentru recomandările de haine/accesorii.
  * ─────────────────────────────────────────────────────────────
  * Smart recommendation engine.
  * Analyses weather conditions and produces actionable suggestions.

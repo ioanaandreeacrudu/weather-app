@@ -1,6 +1,8 @@
 /**
- * utils.test.js
- * ─────────────────────────────────────────────────────────────
+ * @file test.js
+ * @description Suită de teste unitare (Unit Testing) pentru validarea funcțiilor utilitare.
+ * @author Vornicu Denisa Ștefania
+ * @contribution Implementarea aserțiunilor Node.js pentru verificarea preciziei calculelor de temperatură, vânt și logică AI.
  * Basic unit tests for pure utility functions.
  * Run with: node src/utils/__tests__/utils.test.js
  *

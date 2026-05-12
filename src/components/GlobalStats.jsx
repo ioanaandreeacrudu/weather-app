@@ -1,3 +1,9 @@
+/**
+ * @file GlobalStats.jsx
+ * @description Componentă pentru afișarea statisticilor meteorologice la nivel global.
+ * @author Crudu Ioana Andreea
+ * @contribution Implementarea design-ului pentru secțiunea Global Watch și gestionarea layout-ului responsive.
+ */
 export default function GlobalStats() {
   const cities = [
     { name: 'London', temp: '12°', icon: '☁️' },

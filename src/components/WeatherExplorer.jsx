@@ -1,3 +1,10 @@
+/**
+ * @file WeatherExplorer.jsx
+ * @description Implementarea componentei reactive pentru interfața utilizator.
+ * @author Crudu Ioana Andreea
+ * @contribution Dezvoltarea UI/UX, gestionarea stării (state) și integrarea Tailwind CSS v4.
+ */
+
 import { useState, useEffect } from 'react';
 import { fetchWeatherByCity } from '../services/weatherService';
 

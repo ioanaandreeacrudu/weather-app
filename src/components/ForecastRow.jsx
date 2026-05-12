@@ -1,3 +1,9 @@
+/**
+ * @file ForecastRow.jsx
+ * @description Componentă pentru afișarea prognozei meteorologice pe 5 zile.
+ * @author Vornicu Denisa Ștefania
+ * @contribution Maparea și formatarea datelor de prognoză primite de la serviciul extern.
+ */
 export default function ForecastRow({ forecast }) {
   return (
     <div className="w-full animate-slide-up mt-8">
