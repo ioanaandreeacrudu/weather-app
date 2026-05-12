@@ -44,7 +44,6 @@ export default function FavoritesBar({ onSelectCity, currentCity }) {
               </button>
             ))
           ) : (
-            /* Mesaj afișat când lista este goală */
             <div className="flex items-center gap-3 px-4 py-2 bg-white/[0.02] border border-dashed border-white/10 rounded-2xl animate-pulse">
               <span className="text-white/10 text-xs">☆</span>
               <p className="text-[10px] text-white/20 font-mono uppercase tracking-widest">

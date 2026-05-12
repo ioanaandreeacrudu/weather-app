@@ -1,8 +1,5 @@
-/**
- * SearchBar.jsx
- * ─────────────────────────────────────────────────────────────
+/*** ─────────────────────────────────────────────────────────────
  * RESPONSIBILITY: City search input with glassmorphism style.
- * Matches the updated dashboard aesthetic.
  * ─────────────────────────────────────────────────────────────
  */
 
